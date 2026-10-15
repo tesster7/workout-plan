@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A 114-day push, pull and legs daily-minimum training plan.">
+<title>Daily Minimum to February</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column training card. "Your numbers" -> today's session -> phase strip -> 16-week calendar -> rules. */
+:root{
+  --bg:#eef1f3; --panel:#ffffff; --ink:#15202b; --muted:#5b6873; --line:#d3dade;
+  --accent:#e2571c; --accent-ink:#ffffff;
+  --p1:#9fc3c9; --p2:#5a9aa6; --p3:#2f6e7d; --p4:#163f4d;
+  --easy:#4f9a5c; --hard:#c2410c; --std:#5b6873; --light:#e7ebee;
+  --display:"Big Shoulders Display","Arial Narrow",sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f161c; --panel:#17212a; --ink:#e6edf1; --muted:#93a2ad; --line:#2a3742;
+  --accent:#f07038; --accent-ink:#140a05;
+  --p1:#3f6c74; --p2:#4f8f9b; --p3:#78b4bf; --p4:#b5dbe1;
+  --easy:#6cc07a; --hard:#f08a4b; --std:#93a2ad; --light:#1d2933; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161c; --panel:#17212a; --ink:#e6edf1; --muted:#93a2ad; --line:#2a3742;
+  --accent:#f07038; --accent-ink:#140a05;
+  --p1:#3f6c74; --p2:#4f8f9b; --p3:#78b4bf; --p4:#b5dbe1;
+  --easy:#6cc07a; --hard:#f08a4b; --std:#93a2ad; --light:#1d2933; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2.4rem,8vw,3.6rem);text-transform:uppercase}
+h2{font-size:1.6rem;text-transform:uppercase}
+h3{font-size:1.2rem;text-transform:uppercase}
+p{margin:0}
+.lede{color:var(--muted);max-width:60ch}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px}
+section{display:flex;flex-direction:column;gap:14px}
+
+/* inputs */
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field input,.field select{font:500 1.05rem var(--mono);padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.field input:focus,.field select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.note{font-size:.85rem;color:var(--muted)}
+.example{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:2px 6px;border-radius:3px;background:var(--accent);color:var(--accent-ink);margin-left:6px;vertical-align:middle}
+
+/* today */
+.today-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px}
+.nav{display:flex;gap:6px}
+button{font:500 .85rem var(--body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:4px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.today{border-top:6px solid var(--accent)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font-family:var(--mono);font-size:.75rem;padding:3px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.chip.easy{color:var(--easy);border-color:var(--easy)}
+.chip.hard{color:var(--hard);border-color:var(--hard)}
+.chip.std{color:var(--std)}
+.chip.test{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.moves{display:flex;flex-direction:column;margin-top:6px}
+.move{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:12px 0;border-top:1px solid var(--line);align-items:baseline}
+.move:first-child{border-top:0}
+.move .name{font-weight:600;min-width:0}
+.move .ex{color:var(--muted);font-size:.9rem;grid-column:1}
+.move .reps{font-family:var(--display);font-weight:800;font-size:2.2rem;line-height:1;text-align:right;grid-row:1/3;grid-column:2;font-variant-numeric:tabular-nums}
+.move .reps small{display:block;font-family:var(--mono);font-weight:400;font-size:.7rem;color:var(--muted);letter-spacing:.04em}
+.foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.time{font-family:var(--mono);font-size:.9rem}
+.dayinfo{font-size:.9rem;color:var(--muted);margin-top:8px}
+
+/* phases */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.phase{padding:10px 10px 12px;border-radius:4px;color:var(--panel);min-width:0}
+.phase b{font-family:var(--display);font-size:1.15rem;text-transform:uppercase;display:block;line-height:1.1}
+.phase span{font-family:var(--mono);font-size:.7rem;display:block;opacity:.9}
+.ph1{background:var(--p1);color:var(--ink)} .ph2{background:var(--p2)} .ph3{background:var(--p3)} .ph4{background:var(--p4)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ph1,:root:not([data-theme="light"]) .ph2{color:var(--ink)} :root:not([data-theme="light"]) .ph3,:root:not([data-theme="light"]) .ph4{color:var(--bg)}}
+:root[data-theme="dark"] .ph1,:root[data-theme="dark"] .ph2{color:var(--ink)} :root[data-theme="dark"] .ph3,:root[data-theme="dark"] .ph4{color:var(--bg)}
+@media (max-width:520px){.phases{grid-template-columns:repeat(2,1fr)}}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:auto repeat(7,1fr);gap:3px;font-variant-numeric:tabular-nums}
+.cal .hd{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-align:center;padding-bottom:2px}
+.cal .wk{font-family:var(--mono);font-size:.66rem;color:var(--muted);padding-right:6px;align-self:center;white-space:nowrap}
+.cell{position:relative;aspect-ratio:1/1;max-width:100%;border:0;border-radius:3px;padding:3px 4px;text-align:left;font:500 .78rem var(--mono);display:flex;flex-direction:column;justify-content:space-between;color:var(--ink);background:var(--light);cursor:pointer;min-width:0}
+.cell.blank{background:transparent;cursor:default}
+.cell .bar{position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:0 0 3px 3px}
+.cell .t{font-size:.62rem;font-weight:600}
+.cell .t.easy{color:var(--easy)} .cell .t.hard{color:var(--hard)} .cell .t.std{color:var(--std)} .cell .t.test{color:var(--accent)}
+.cell.lt{opacity:.72}
+.cell.sel{outline:2px solid var(--accent);outline-offset:1px}
+.cell.done::after{content:"✓";position:absolute;top:2px;right:4px;font-size:.75rem;color:var(--easy);font-weight:700}
+.cell.now .d{color:var(--accent);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.rule{display:flex;flex-direction:column;gap:6px}
+.rule p,.rule li{font-size:.9rem}
+.rule ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+.tablewrap{overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+td.e{color:var(--easy)} td.h{color:var(--hard)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="label">15 Oct 2026 → 5 Feb 2027 · 114 days · push / pull / legs</span>
+    <h1>Daily Minimum</h1>
+    <p class="lede">Three movements, every day. Each day has a rep floor you must hit. Easy and hard variations rotate through the week so you recover without skipping days. The floor rises across four phases, and you retest at the end of each one.</p>
+  </header>
+
+  <section class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+      <h2>Your numbers <span id="exTag" class="example">example</span></h2>
+      <span class="label">update on test days</span>
+    </div>
+    <div class="inputs">
+      <div class="field"><label class="label" for="mPush">Max push-ups</label><input id="mPush" type="number" min="1" max="200" inputmode="numeric"></div>
+      <div class="field"><label class="label" for="mPull" id="pullLabel">Max inverted rows</label><input id="mPull" type="number" min="1" max="100" inputmode="numeric"></div>
+      <div class="field"><label class="label" for="mLegs">Max squats</label><input id="mLegs" type="number" min="1" max="300" inputmode="numeric"></div>
+      <div class="field"><label class="label" for="equip">Pull setup</label>
+        <select id="equip"><option value="nobar">Table, rings or low bar (rows)</option><option value="bar">Pull-up bar</option></select></div>
+    </div>
+    <p class="note">Test today: one set of each standard variation (push-up, row or chin-up, bodyweight squat), clean reps only, stop when form breaks. Rest 3 minutes between tests. Every number below is calculated from these.</p>
+  </section>
+
+  <section>
+    <div class="today-head">
+      <div><span class="label" id="dLabel">Session</span><h2 id="dTitle">Today</h2></div>
+      <div class="nav"><button id="prev" aria-label="Previous day">←</button><button id="goToday">Today</button><button id="next" aria-label="Next day">→</button></div>
+    </div>
+    <div class="panel today">
+      <div class="meta" id="chips"></div>
+      <p class="dayinfo" id="dayinfo"></p>
+      <div class="moves" id="moves"></div>
+      <div class="foot"><span class="time" id="time"></span><button id="doneBtn" class="primary">Mark done</button></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Four phases</h2>
+    <div class="phases">
+      <div class="phase ph1"><b>Foundation</b><span>15 Oct – 8 Nov</span><span>15–20 min</span></div>
+      <div class="phase ph2"><b>Build</b><span>9 Nov – 6 Dec</span><span>20–30 min</span></div>
+      <div class="phase ph3"><b>Push</b><span>7 Dec – 10 Jan</span><span>25–40 min</span></div>
+      <div class="phase ph4"><b>Peak</b><span>11 Jan – 5 Feb</span><span>35–45 min</span></div>
+    </div>
+    <p class="note">The floor climbs from about 0.7× your max per movement to about 3× by late January. Light weeks drop it to 65%: 2–7 Nov, 30 Nov–5 Dec, and the holiday stretch 21 Dec–3 Jan. Retest on 8 Nov, 6 Dec, 10 Jan and 5 Feb, then update your numbers.</p>
+  </section>
+
+  <section>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px"><h2>Calendar</h2><span class="label" id="doneCount"></span></div>
+    <div class="cal" id="cal"></div>
+    <div class="legend">
+      <span><i style="background:var(--easy)"></i>E easy variation</span>
+      <span><i style="background:var(--std)"></i>S standard</span>
+      <span><i style="background:var(--hard)"></i>H hard variation</span>
+      <span><i style="background:var(--accent)"></i>T test day</span>
+      <span>Faded = light week</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Variation ladder</h2>
+    <div class="tablewrap panel" style="padding:4px 8px">
+      <table>
+        <thead><tr><th>Move</th><th>Easy</th><th>Standard</th><th>Hard</th></tr></thead>
+        <tbody id="ladder"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rules</h2>
+    <div class="rules">
+      <div class="panel rule"><h3>Every set</h3><ul><li>Stop 1–3 reps short of failure. Hard, never sloppy.</li><li>Full range, controlled lowering, feel the target muscle work.</li><li>Rest 60–90 s early on, about 2 min from Build onward.</li></ul></div>
+      <div class="panel rule"><h3>Hitting the floor</h3><ul><li>The rep number is a minimum. Extra sets are fine on easy days only.</li><li>Busy day: split the sets across morning and evening. It still counts.</li><li>Over 45 minutes on paper? Do two blocks rather than one long session.</li></ul></div>
+      <div class="panel rule"><h3>When to back off</h3><ul><li>Joint or elbow pain (not muscle soreness): do the easy variation at the floor and nothing more for 3 days.</li><li>Sick or wrecked: one easy set of each still keeps the streak.</li><li>Pull days strain elbows first. That's why pull targets run 15% lower.</li></ul></div>
+      <div class="panel rule"><h3>Warm-up, 4 min</h3><ul><li>30 s arm circles each way</li><li>10 scap push-ups, 10 scap pulls or rows</li><li>10 slow squats, 5 lunges each leg</li><li>One easy set of the day's push variation</li></ul></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const D=(y,m,d)=>new Date(y,m-1,d);
+  const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const parse=s=>{const [y,m,d]=s.split("-").map(Number);return D(y,m,d)};
+  const START=D(2026,10,15), END=D(2027,2,5);
+  const DAY=86400000;
+  const daysBetween=(a,b)=>Math.round((b-a)/DAY);
+
+  const PHASES=[
+    {n:1,name:"Foundation",s:"2026-10-15",e:"2026-11-08",from:0.7,to:1.0,rest:1.5},
+    {n:2,name:"Build",s:"2026-11-09",e:"2026-12-06",from:1.0,to:1.7,rest:2},
+    {n:3,name:"Push",s:"2026-12-07",e:"2027-01-10",from:1.7,to:2.4,rest:2},
+    {n:4,name:"Peak",s:"2027-01-11",e:"2027-02-05",from:2.4,to:3.0,rest:2}
+  ].map(p=>({...p,sd:parse(p.s),ed:parse(p.e)}));
+  const LIGHT=[["2026-11-02","2026-11-07","Light week before your first retest."],["2026-11-30","2026-12-05","Light week before your second retest."],["2026-12-21","2027-01-03","Holiday hold: keep the streak, keep it light."],["2027-02-01","2027-02-04","Taper before the final test."]].map(([a,b,t])=>({a:parse(a),b:parse(b),t}));
+  const TESTS={"2026-11-08":1,"2026-12-06":2,"2027-01-10":3,"2027-02-05":4};
+  const WEEKTYPE=["std","std","hard","easy","std","hard","easy"]; // Sun..Sat
+
+  const LADDER={
+    push:{label:"Push",easy:"Incline push-up, hands on a bench",std:"Push-up",hard:"Decline push-up (feet on bench) or dips"},
+    pull_nobar:{label:"Pull",easy:"Inverted row, knees bent",std:"Inverted row, legs straight",hard:"Feet-elevated row, 2 s squeeze at top"},
+    pull_bar:{label:"Pull",easy:"Slow negatives (3–5 s down) or band-assisted",std:"Chin-up (palms facing you)",hard:"Pull-up, overhand grip"},
+    legs:{label:"Legs",easy:"Bodyweight squat",std:"Reverse lunge, alternating (count both legs)",hard:"Bulgarian split squat (reps per leg)"}
+  };
+  // target factor and set size as a fraction of standard max
+  const TYPE={easy:{f:1.0,set:0.7},std:{f:1.0,set:0.6},hard:{f:0.6,set:0.35}};
+
+  const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  let st={push:25,pull:10,legs:40,equip:"nobar",example:true,done:{}};
+  try{const s=JSON.parse(store.get("dm-state")||"null");if(s)st={...st,...s}}catch(e){}
+  const save=()=>store.set("dm-state",JSON.stringify(st));
+
+  const realToday=new Date();realToday.setHours(0,0,0,0);
+  const clamp=d=>d<START?new Date(START):d>END?new Date(END):d;
+  let sel=clamp(new Date(realToday));
+
+  function phaseOf(d){return PHASES.find(p=>d>=p.sd&&d<=p.ed)}
+  function lightOf(d){return LIGHT.find(l=>d>=l.a&&d<=l.b)}
+  function dayType(d){
+    if(TESTS[key(d)])return "test";
+    let t=WEEKTYPE[d.getDay()];
+    const light=lightOf(d);
+    if(daysBetween(START,d)<7 && t==="hard")t="std"; // first week: no hard days
+    if(light && t==="hard")t="std";
+    return t;
+  }
+  function mult(d){
+    const p=phaseOf(d), len=daysBetween(p.sd,p.ed), prog=Math.min(1,daysBetween(p.sd,d)/(len*0.6));
+    let m=p.from+(p.to-p.from)*prog;
+    if(lightOf(d))m*=0.65;
+    return m;
+  }
+  function plan(d){
+    const p=phaseOf(d), t=dayType(d), m=mult(d), light=lightOf(d);
+    const moves=[["push","push",1],["pull","pull_"+st.equip,0.85],["legs","legs",1]];
+    if(t==="test"){
+      return {p,t,light,m,moves:moves.map(([k,lk])=>({k,name:LADDER[lk].label,ex:LADDER[lk].std,reps:"MAX",sub:"one clean set",sets:1})),time:"~15 min"};
+    }
+    const T=TYPE[t]; let totalSets=0;
+    const out=moves.map(([k,lk,adj])=>{
+      const max=Math.max(1,+st[k]||1);
+      const target=Math.max(3,Math.round(max*m*T.f*adj));
+      const setSize=Math.max(2,Math.round(max*T.set*(k==="pull"&&t==="hard"?1.1:1)));
+      const sets=Math.max(1,Math.ceil(target/setSize));
+      totalSets+=sets;
+      const per=Math.ceil(target/sets);
+      return {k,name:LADDER[lk].label,ex:LADDER[lk][t],reps:target,sub:sets+" × ~"+per+(k==="legs"&&t==="hard"?" /leg":""),sets};
+    });
+    const mins=4+totalSets*(p.rest+0.35);
+    let time;
+    if(mins<15)time="~15 min · spare minutes go to mobility";
+    else if(mins>45)time="~45 min · split into two blocks";
+    else time="~"+Math.round(mins/5)*5+" min";
+    return {p,t,light,m,moves:out,time};
+  }
+
+  const fmt=d=>d.toLocaleDateString("en-ZA",{weekday:"long",day:"numeric",month:"long"});
+  const TNAME={easy:"Easy day",std:"Standard day",hard:"Hard day",test:"Test day"};
+  const TINFO={
+    easy:"Easier variations. Same floor, less strain. Bank the reps and leave feeling fresh.",
+    std:"Standard variations. Sets close to failure, clean reps.",
+    hard:"Harder variations, lower floor. Small sets, full control.",
+    test:"Warm up, then one all-out clean set of each standard variation with 3 min rest. Enter the new numbers above; the next phase is built from them."
+  };
+
+  function renderToday(){
+    const r=plan(sel), k=key(sel);
+    const isToday=k===key(realToday);
+    document.getElementById("dLabel").textContent=(isToday?"Today · ":"")+"Day "+(daysBetween(START,sel)+1)+" of 114";
+    document.getElementById("dTitle").textContent=fmt(sel);
+    document.getElementById("chips").innerHTML=
+      '<span class="chip '+r.t+'">'+TNAME[r.t]+'</span>'+
+      '<span class="chip">Phase '+r.p.n+' · '+r.p.name+'</span>'+
+      (r.light?'<span class="chip">Light week</span>':'')+
+      (r.t!=="test"?'<span class="chip">floor '+r.m.toFixed(2)+'× max</span>':'');
+    document.getElementById("dayinfo").textContent=(r.light&&r.t!=="test"?r.light.t+" ":"")+TINFO[r.t];
+    document.getElementById("moves").innerHTML=r.moves.map(m=>
+      '<div class="move"><span class="name">'+m.name+'</span><span class="reps">'+m.reps+'<small>'+m.sub+'</small></span><span class="ex">'+m.ex+'</span></div>').join("");
+    document.getElementById("time").textContent=r.time;
+    const b=document.getElementById("doneBtn");
+    b.textContent=st.done[k]?"Done ✓ (undo)":"Mark done";
+    b.className=st.done[k]?"":"primary";
+    document.getElementById("prev").disabled=sel<=START;
+    document.getElementById("next").disabled=sel>=END;
+  }
+
+  function renderCal(){
+    const cal=document.getElementById("cal");
+    let h='<span></span>'+["M","T","W","T","F","S","S"].map(x=>'<span class="hd">'+x+'</span>').join("");
+    let d=new Date(START); d.setDate(d.getDate()-((d.getDay()+6)%7)); // Monday
+    while(d<=END){
+      h+='<span class="wk">'+d.toLocaleDateString("en-ZA",{day:"numeric",month:"short"})+'</span>';
+      for(let i=0;i<7;i++){
+        if(d<START||d>END){h+='<span class="cell blank"></span>';}
+        else{
+          const k=key(d),t=dayType(d),p=phaseOf(d);
+          const cls=["cell",lightOf(d)?"lt":"",st.done[k]?"done":"",k===key(sel)?"sel":"",k===key(realToday)?"now":""].join(" ");
+          h+='<button class="'+cls+'" data-k="'+k+'" aria-label="'+fmt(d)+', '+TNAME[t]+'"><span class="d">'+d.getDate()+'</span><span class="t '+t+'">'+(t==="test"?"T":t==="std"?"S":t[0].toUpperCase())+'</span><span class="bar" style="background:var(--p'+p.n+')"></span></button>';
+        }
+        d.setDate(d.getDate()+1);
+      }
+    }
+    cal.innerHTML=h;
+    const n=Object.keys(st.done).filter(k=>st.done[k]).length;
+    document.getElementById("doneCount").textContent=n+" / 114 done";
+  }
+
+  function renderLadder(){
+    const rows=[LADDER.push,LADDER["pull_"+st.equip],LADDER.legs];
+    document.getElementById("ladder").innerHTML=rows.map(r=>'<tr><td><b>'+r.label+'</b></td><td class="e">'+r.easy+'</td><td>'+r.std+'</td><td class="h">'+r.hard+'</td></tr>').join("");
+    document.getElementById("pullLabel").textContent=st.equip==="bar"?"Max chin-ups":"Max inverted rows";
+  }
+
+  function renderInputs(){
+    ["push","pull","legs"].forEach(k=>document.getElementById("m"+k[0].toUpperCase()+k.slice(1)).value=st[k]);
+    document.getElementById("equip").value=st.equip;
+    document.getElementById("exTag").hidden=!st.example;
+  }
+  const all=()=>{renderLadder();renderToday();renderCal()};
+
+  ["Push","Pull","Legs"].forEach(K=>{
+    document.getElementById("m"+K).addEventListener("input",e=>{
+      const v=parseInt(e.target.value,10); if(!(v>0))return;
+      st[K.toLowerCase()]=v; st.example=false; document.getElementById("exTag").hidden=true; save(); all();
+    });
+  });
+  document.getElementById("equip").addEventListener("change",e=>{st.equip=e.target.value;save();all()});
+  document.getElementById("prev").onclick=()=>{sel.setDate(sel.getDate()-1);sel=clamp(sel);renderToday();renderCal()};
+  document.getElementById("next").onclick=()=>{sel.setDate(sel.getDate()+1);sel=clamp(sel);renderToday();renderCal()};
+  document.getElementById("goToday").onclick=()=>{sel=clamp(new Date(realToday));renderToday();renderCal()};
+  document.getElementById("doneBtn").onclick=()=>{const k=key(sel);st.done[k]=!st.done[k];save();renderToday();renderCal()};
+  document.getElementById("cal").addEventListener("click",e=>{const b=e.target.closest("button.cell");if(!b)return;sel=parse(b.dataset.k);renderToday();renderCal();});
+
+  renderInputs(); all();
+})();
+</script>
+</body>
+</html>

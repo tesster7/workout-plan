@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="A 114-day push, pull and legs daily-minimum training plan.">
+<meta name="description" content="A 110-day push, pull and legs daily-minimum training plan.">
 <title>Daily Minimum to February</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -117,7 +117,7 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
 
 <div class="wrap">
   <header style="display:flex;flex-direction:column;gap:10px">
-    <span class="label">15 Oct 2026 → 5 Feb 2027 · 114 days · push / pull / legs</span>
+    <span class="label">19 Oct 2026 → 5 Feb 2027 · 110 days · push / pull / legs</span>
     <h1>Daily Minimum</h1>
     <p class="lede">Three movements, every day. Each day has a rep floor you must hit. Easy and hard variations rotate through the week so you recover without skipping days. The floor rises across four phases, and you retest at the end of each one.</p>
   </header>
@@ -134,7 +134,7 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
       <div class="field"><label class="label" for="equip">Pull setup</label>
         <select id="equip"><option value="nobar">Table, rings or low bar (rows)</option><option value="bar">Pull-up bar</option></select></div>
     </div>
-    <p class="note">Test today: one set of each standard variation (push-up, row or chin-up, bodyweight squat), clean reps only, stop when form breaks. Rest 3 minutes between tests. Every number below is calculated from these.</p>
+    <p class="note">Test before your first session on 19 Oct: one set of each standard variation (push-up, row or chin-up, bodyweight squat), clean reps only, stop when form breaks. Rest 3 minutes between tests. Every number below is calculated from these.</p>
   </section>
 
   <section>
@@ -153,12 +153,12 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
   <section>
     <h2>Four phases</h2>
     <div class="phases">
-      <div class="phase ph1"><b>Foundation</b><span>15 Oct – 8 Nov</span><span>15–20 min</span></div>
+      <div class="phase ph1"><b>Foundation</b><span>19 Oct – 8 Nov</span><span>15–20 min</span></div>
       <div class="phase ph2"><b>Build</b><span>9 Nov – 6 Dec</span><span>20–30 min</span></div>
       <div class="phase ph3"><b>Push</b><span>7 Dec – 10 Jan</span><span>25–40 min</span></div>
       <div class="phase ph4"><b>Peak</b><span>11 Jan – 5 Feb</span><span>35–45 min</span></div>
     </div>
-    <p class="note">The floor climbs from about 0.7× your max per movement to about 3× by late January. Light weeks drop it to 65%: 2–7 Nov, 30 Nov–5 Dec, and the holiday stretch 21 Dec–3 Jan. Retest on 8 Nov, 6 Dec, 10 Jan and 5 Feb, then update your numbers.</p>
+    <p class="note">The floor climbs from about 0.7× your max per movement to about 3× by late January. Light weeks drop it to 65%: 4–7 Nov, 30 Nov–5 Dec, and the holiday stretch 21 Dec–3 Jan. Retest on 8 Nov, 6 Dec, 10 Jan and 5 Feb, then update your numbers.</p>
   </section>
 
   <section>
@@ -199,17 +199,18 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
   const D=(y,m,d)=>new Date(y,m-1,d);
   const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
   const parse=s=>{const [y,m,d]=s.split("-").map(Number);return D(y,m,d)};
-  const START=D(2026,10,15), END=D(2027,2,5);
+  const START=D(2026,10,19), END=D(2027,2,5);
   const DAY=86400000;
   const daysBetween=(a,b)=>Math.round((b-a)/DAY);
+  const TOTAL=daysBetween(START,END)+1;
 
   const PHASES=[
-    {n:1,name:"Foundation",s:"2026-10-15",e:"2026-11-08",from:0.7,to:1.0,rest:1.5},
+    {n:1,name:"Foundation",s:"2026-10-19",e:"2026-11-08",from:0.7,to:1.0,rest:1.5},
     {n:2,name:"Build",s:"2026-11-09",e:"2026-12-06",from:1.0,to:1.7,rest:2},
     {n:3,name:"Push",s:"2026-12-07",e:"2027-01-10",from:1.7,to:2.4,rest:2},
     {n:4,name:"Peak",s:"2027-01-11",e:"2027-02-05",from:2.4,to:3.0,rest:2}
   ].map(p=>({...p,sd:parse(p.s),ed:parse(p.e)}));
-  const LIGHT=[["2026-11-02","2026-11-07","Light week before your first retest."],["2026-11-30","2026-12-05","Light week before your second retest."],["2026-12-21","2027-01-03","Holiday hold: keep the streak, keep it light."],["2027-02-01","2027-02-04","Taper before the final test."]].map(([a,b,t])=>({a:parse(a),b:parse(b),t}));
+  const LIGHT=[["2026-11-04","2026-11-07","Light week before your first retest."],["2026-11-30","2026-12-05","Light week before your second retest."],["2026-12-21","2027-01-03","Holiday hold: keep the streak, keep it light."],["2027-02-01","2027-02-04","Taper before the final test."]].map(([a,b,t])=>({a:parse(a),b:parse(b),t}));
   const TESTS={"2026-11-08":1,"2026-12-06":2,"2027-01-10":3,"2027-02-05":4};
   const WEEKTYPE=["std","std","hard","easy","std","hard","easy"]; // Sun..Sat
 
@@ -283,7 +284,7 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
   function renderToday(){
     const r=plan(sel), k=key(sel);
     const isToday=k===key(realToday);
-    document.getElementById("dLabel").textContent=(isToday?"Today · ":"")+"Day "+(daysBetween(START,sel)+1)+" of 114";
+    document.getElementById("dLabel").textContent=(isToday?"Today · ":"")+"Day "+(daysBetween(START,sel)+1)+" of "+TOTAL;
     document.getElementById("dTitle").textContent=fmt(sel);
     document.getElementById("chips").innerHTML=
       '<span class="chip '+r.t+'">'+TNAME[r.t]+'</span>'+
@@ -318,8 +319,8 @@ td.e{color:var(--easy)} td.h{color:var(--hard)}
       }
     }
     cal.innerHTML=h;
-    const n=Object.keys(st.done).filter(k=>st.done[k]).length;
-    document.getElementById("doneCount").textContent=n+" / 114 done";
+    const n=Object.keys(st.done).filter(k=>st.done[k]&&parse(k)>=START&&parse(k)<=END).length;
+    document.getElementById("doneCount").textContent=n+" / "+TOTAL+" done";
   }
 
   function renderLadder(){
